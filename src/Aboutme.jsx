@@ -1,0 +1,187 @@
+import { motion } from "framer-motion";
+import { GraduationCap, Trophy, Github, User } from "lucide-react";
+
+// Retro Window Component
+function NeoWindow({ title, icon: Icon, children, headerBg = "bg-brand-dark", textCol = "text-brand-bg", onClick }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6 }}
+      onClick={onClick}
+      className="border-3 border-brand-dark bg-brand-bg neo-shadow transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(24,33,37,1)] cursor-pointer"
+    >
+      {/* Title Bar */}
+      <div className={`flex items-center justify-between px-4 py-2 border-b-3 border-brand-dark ${headerBg} ${textCol}`}>
+        <div className="flex items-center gap-2">
+          {Icon && <Icon size={16} strokeWidth={2.5} />}
+          <span className="font-display font-extrabold text-sm uppercase tracking-wider">{title}</span>
+        </div>
+        {/* Mock Window Controls */}
+        <div className="flex gap-1.5">
+          <span className="w-3 h-3 rounded-full border-2 border-brand-dark bg-brand-red"></span>
+          <span className="w-3 h-3 rounded-full border-2 border-brand-dark bg-brand-rose"></span>
+          <span className="w-3 h-3 rounded-full border-2 border-brand-dark bg-brand-muddy"></span>
+        </div>
+      </div>
+      {/* Content */}
+      <div className="p-6">
+        {children}
+      </div>
+    </motion.div>
+  );
+}
+
+export default function AboutMe({
+  githubUsername = "yash9359",
+  leetcodeUsername = "yash8687",
+  theme = "tokyonight",
+}) {
+  const statCardBase = `https://awesome-github-stats.azurewebsites.net`;
+  const leetCodeBase = `https://leetcard.jacoblin.cool`;
+
+  return (
+    <section
+      id="about"
+      className="relative w-full min-h-screen py-24 px-4 sm:px-6 bg-brand-bg text-brand-dark border-t-3 border-brand-dark bg-grid-pattern flex items-center justify-center"
+    >
+      <div className="max-w-6xl w-full z-10">
+
+        {/* Section Heading Card */}
+        <div className="flex justify-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: -1.5 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="inline-block bg-brand-red text-brand-bg px-4 py-2.5 sm:px-8 sm:py-3 border-3 border-brand-dark neo-shadow sm:neo-shadow-lg"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black uppercase tracking-tight">
+              About Me
+            </h2>
+          </motion.div>
+        </div>
+
+        {/* Layout Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+
+          {/* Left Column: Bio & Info */}
+          <div className="space-y-8">
+
+            {/* Bio Card */}
+            <NeoWindow title="Developer Bio" icon={User} headerBg="bg-brand-muddy" textCol="text-brand-bg">
+              <p className="text-base md:text-lg leading-relaxed font-bold text-brand-dark">
+                Hello, I'm{" "}
+                <span className="px-1.5 py-0.5 bg-brand-rose border-2 border-brand-dark inline-block rotate-[-1deg] text-brand-dark">
+                  Yash Gupta
+                </span>{" "}
+                — a <span className="underline decoration-brand-red decoration-3">Backend Developer</span> and third-year Computer Science undergrad at{" "}
+                <span className="underline decoration-brand-muddy decoration-3 font-extrabold text-brand-dark">
+                  Noida Institute of Engineering & Technology
+                </span>.
+              </p>
+              <p className="mt-4 text-base md:text-lg leading-relaxed text-brand-dark/80">
+                I have strong skills in Object-Oriented Programming and backend development, and I love building scalable web applications — from a MERN social media app with real-time chat using Socket.IO to full-stack apps with Next.js. Currently working as a Backend Developer Intern and always looking to build reliable software systems.
+              </p>
+            </NeoWindow>
+
+            {/* Education Card */}
+            <NeoWindow title="Education" icon={GraduationCap} headerBg="bg-brand-rose" textCol="text-brand-dark">
+              <div className="font-bold text-brand-dark">
+                <span className="text-xl font-display font-black uppercase block">
+                  B.Tech in Computer Science
+                </span>
+                <span className="text-brand-red text-lg block mt-1">
+                  Noida Institute of Engineering & Technology
+                </span>
+                <div className="mt-3 p-3 bg-brand-bg border-2 border-brand-dark neo-shadow-sm flex flex-col gap-1 text-sm md:text-base">
+                  <span>CGPA: 9.00 / 10</span>
+                  <span>Aug 2024 - May 2028</span>
+                  <span>Greater Noida, India</span>
+                  <span className="pt-2 mt-1 border-t-2 border-brand-dark/20">P.S.V.M Inter College, Kanpur (2020 - 2022)</span>
+                  <span>Secondary: 87.5% | Intermediate: 87.8%</span>
+                </div>
+              </div>
+            </NeoWindow>
+
+            {/* Coursework Card */}
+            <NeoWindow title="Awards & Achievements" icon={Trophy} headerBg="bg-brand-dark" textCol="text-brand-bg">
+              <div className="grid grid-cols-1 gap-3">
+                {[
+                  "Rank 4105 / 13,000+ — IICPC CodeFest 2026 Global Prelims (DTU)",
+                  "Rank 1402 — LeetCode Weekly/Biweekly Contest"
+                ].map((course, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 p-2 bg-[#FBFAF7] border-2 border-brand-dark text-xs md:text-sm font-bold shadow-[2px_2px_0px_0px_rgba(24,33,37,1)] hover:bg-brand-rose transition-colors duration-100"
+                  >
+                    <span className="w-2.5 h-2.5 bg-brand-red border border-brand-dark shrink-0"></span>
+                    <span>{course}</span>
+                  </div>
+                ))}
+              </div>
+            </NeoWindow>
+          </div>
+
+          {/* Right Column: Code/API Stats Platforms */}
+          <div className="space-y-8">
+
+            {/* GitHub Stats Panel */}
+            <NeoWindow
+              title="GitHub Profile Stats"
+              icon={Github}
+              headerBg="bg-brand-dark"
+              textCol="text-brand-bg"
+              onClick={() => window.open(`https://github.com/${githubUsername}`, "_blank")}
+            >
+              <div className="border-2 border-brand-dark p-2 bg-[#182125] neo-shadow-sm overflow-hidden hover:scale-[1.01] transition-transform duration-150">
+                <img
+                  loading="lazy"
+                  className="w-full h-auto object-cover"
+                  alt={`GitHub stats card for ${githubUsername}`}
+                  src={`${statCardBase}/user-stats/${githubUsername}?cardType=github&theme=dark&fontFamily=Mandali&preferLogin=false&Border=000000`}
+                />
+              </div>
+              <div className="mt-3 text-right">
+                <span className="text-xs font-bold uppercase tracking-wider text-black bg-brand-rose px-2.5 py-1 border border-brand-dark">
+                  Click to visit github
+                </span>
+              </div>
+            </NeoWindow>
+
+            {/* LeetCode Stats Panel */}
+            <NeoWindow
+              title="LeetCode Performance"
+              icon={() => (
+                <img
+                  src="https://leetcode.com/static/images/LeetCode_logo_rvs.png"
+                  alt="LeetCode logo"
+                  className="h-4 w-4 object-contain"
+                />
+              )}
+              headerBg="bg-brand-muddy"
+              textCol="text-brand-bg"
+              onClick={() => window.open(`https://leetcode.com/u/${leetcodeUsername}`, "_blank")}
+            >
+              <div className="border-2 border-brand-dark p-2 bg-[#182125] neo-shadow-sm overflow-hidden hover:scale-[1.01] transition-transform duration-150">
+                <img
+                  loading="lazy"
+                  className="w-full h-auto object-cover"
+                  alt={`LeetCode stats card for ${leetcodeUsername}`}
+                  src={`${leetCodeBase}/${leetcodeUsername}?ext=heatmap`}
+                />
+              </div>
+              <div className="mt-3 text-right">
+                <span className="text-xs font-bold uppercase tracking-wider text-black bg-brand-rose px-2.5 py-1 border border-brand-dark">
+                  Click to visit leetcode
+                </span>
+              </div>
+            </NeoWindow>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
